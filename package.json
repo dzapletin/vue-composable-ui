@@ -1,0 +1,35 @@
+{
+  "name": "vue-composable-ui",
+  "version": "0.0.1",
+  "type": "module",
+  "repository": "https://github.com/dzapletin/vue-composable-ui",
+  "main": "./dist/composable-ui.umd.cjs",
+  "module": "./dist/composable-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/composable-ui.js",
+      "require": "./dist/composable-ui.umd.cjs"
+    }
+  },
+  "types": "./dist/types/main.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc",
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "sass": "^1.69.5",
+    "typescript": "^5.0.2",
+    "vite": "^5.4.1",
+    "vitepress": "^1.0.0-rc.24",
+    "vue-tsc": "^2.0.29"
+  }
+}

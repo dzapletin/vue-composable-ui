@@ -1,0 +1,155 @@
+.d-demo {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: stretch;
+  position: relative;
+  border-radius: 1rem;
+  padding: 5rem;
+  background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+  overflow: hidden;
+
+  &__column {
+    flex-grow: 1;
+  }
+
+  h5 {
+    font-weight: 600;
+    line-height: 24px;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+    color: black;
+  }
+}
+
+.d-demo [tabindex]:not([tabindex="-1"]):focus {
+  outline: 3px solid DeepPink;
+  outline-offset: 2px;
+}
+
+.d-pointer {
+  cursor: pointer;
+}
+
+.d-btn {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid transparent;
+  background-color: #6267ec;
+  color: white;
+
+  &:hover {
+    background-color: #5047e0;
+  }
+}
+
+.d-tooltip {
+  background-color: rgba($color: #000, $alpha: 0.8);
+  color: white;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.d-popover {
+  z-index: 20;
+  outline: none;
+  padding: 1rem;
+  background: white;
+  color: black;
+  border-radius: 0.5rem;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12);
+  margin: 0.5rem 0;
+
+  &--h {
+    margin: 0 0.5rem;
+  }
+}
+
+.d-menu {
+  @extend .d-popover;
+  padding: 0.25rem;
+  margin: 0.25rem 0;
+}
+
+.d-menu-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  user-select: none;
+  &[aria-disabled="true"] {
+    color: gray;
+    cursor: default;
+  }
+  &[data-active="true"] {
+    background-color: #6267ec;
+    color: white;
+  }
+}
+
+.d-input {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  background: white;
+  border: 1px solid #d1d5da;
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+  color: black;
+  &:focus {
+    border-color: #6267ec;
+  }
+
+  &--select {
+    cursor: pointer;
+    position: relative;
+    &::after {
+      content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41IiBkPSJNOC4yNSAxNUwxMiAxOC43NUwxNS43NSAxNW0tNy41LTZMMTIgNS4yNUwxNS43NSA5Ii8+PC9zdmc+");
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+.d-combobox {
+  @extend .d-input;
+  padding: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+
+  &__tags {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    color: gray;
+  }
+
+  input {
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.125rem 0.5rem;
+  }
+}
+
+.d-tag {
+  background-color: #6267ec;
+  color: white;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  white-space: nowrap;
+}
+
+.d-no-options {
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+  color: gray;
+}
