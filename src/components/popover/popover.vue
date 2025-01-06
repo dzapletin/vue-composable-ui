@@ -26,8 +26,6 @@ const props = withDefaults(
     role?: "dialog" | "listbox" | "menu" | "tree" | "grid";
   }>(),
   {
-    id: useSequentialId("popover"),
-    activatorId: useSequentialId("popover-activator"),
     direction: "down",
     align: "left",
     position: "fixed",
@@ -37,9 +35,12 @@ const props = withDefaults(
   }
 );
 
+const popoverId = props.id ?? useSequentialId("popover");
+const activatorId = props.activatorId ?? useSequentialId("popover-activator");
+
 const { isOpen, toggle, open, close } = usePopover(
-  `#${props.activatorId}`,
-  `#${props.id}`,
+  `#${activatorId}`,
+  `#${popoverId}`,
   {
     direction: props.direction,
     align: props.align,
@@ -50,15 +51,15 @@ const { isOpen, toggle, open, close } = usePopover(
 );
 
 const activatorAttrs = computed(() => ({
-  id: props.activatorId,
+  id: activatorId,
   "aria-controls": isOpen.value ? props.id : undefined,
   "aria-haspopup": props.role,
   "aria-expanded": isOpen.value,
 }));
 
 provide(injectPopover, {
-  popoverId: props.id,
-  activatorId: props.activatorId,
+  popoverId,
+  activatorId,
   role: props.role,
   isOpen,
   close,

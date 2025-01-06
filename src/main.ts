@@ -12,6 +12,8 @@ import { useSequentialId } from "./utils/id";
 
 // Components
 
+export * from "./components/injectionKeys";
+
 import Listbox from "./components/listbox/listbox.vue";
 import ListboxOption from "./components/listbox/listboxOption.vue";
 
@@ -30,6 +32,7 @@ import MenuItems from "./components/menu/menuItems.vue";
 import MenuItem from "./components/menu/menuItem.vue";
 
 import Combobox from "./components/combobox/combobox.vue";
+import ComboboxInput from "./components/combobox/comboboxInput.vue";
 import ComboboxOptions from "./components/combobox/comboboxOptions.vue";
 import ComboboxOption from "./components/combobox/comboboxOption.vue";
 
@@ -60,6 +63,7 @@ export {
   MenuItem,
   //
   Combobox,
+  ComboboxInput,
   ComboboxOptions,
   ComboboxOption,
 };

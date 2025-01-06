@@ -2,7 +2,6 @@
   <button
     ref="tab"
     @click="select"
-    :v="value"
     :id="tabId"
     :aria-selected="isSelected"
     :aria-controls="tabPanelId"
@@ -21,7 +20,7 @@ import { useListOption } from "../../composables/listOption";
 const props = defineProps<{
   id?: string;
   ariaControls?: string;
-  value: any;
+  value: string | number;
 }>();
 
 const tab = ref<HTMLButtonElement>();

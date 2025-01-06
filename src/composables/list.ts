@@ -30,7 +30,7 @@ export interface ActivationOptions {
 
 interface NavigationOptions {
   /**
-   * Infinitely cycle throught the items
+   * Infinitely cycle through the items
    *
    * @defaultValue `false`
    */
@@ -192,13 +192,13 @@ export function useList(value: Ref<unknown>): UseListReturn {
   }
 
   function removeItem(itemId: number) {
+    if (isActive(itemId)) {
+      activateItem();
+    }
     const item = getItem(itemId);
     const idx = items.value.indexOf(item);
     items.value.splice(idx, 1);
     triggerRef(items);
-    if (isActive(itemId)) {
-      activateItem();
-    }
   }
 
   function selectItem(itemId: number) {

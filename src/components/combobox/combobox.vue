@@ -1,34 +1,30 @@
 <template>
   <template v-if="name">
-    <ComboboxFormInput
+    <ComboboxHiddenInput
       v-if="isMultiselectable"
       v-for="(value, id) in formInputs"
       :name="`${name}[${id}]`"
       :value="value"
     />
-    <ComboboxFormInput v-else :name="name" :value="formInputs" />
+    <ComboboxHiddenInput v-else :name="name" :value="formInputs" />
   </template>
 
   <slot
-    name="input"
     :popoverId="popoverId"
-    :attrs="inputAttrs"
     :isOpen="isOpen"
     :toggle="toggle"
-  >
-    <input v-bind="{ ...$attrs, ...inputAttrs }" autocomplete="off" />
-  </slot>
-
-  <slot />
+    :displayValue="displayValue"
+    :attrs="activatorAttrs"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, watch, nextTick } from "vue";
+import { computed, provide, watch, nextTick } from "vue";
 import { useSequentialId } from "../../utils/id";
+import { useHTMLElement } from "../../utils/element";
 import { usePopover } from "../../composables/popover";
 import { useList } from "../../composables/list";
-import { useFormControl, FormValidator } from "../../composables/formControl";
-import ComboboxFormInput from "./comboboxFormInput.vue";
+import ComboboxHiddenInput from "./comboboxHiddenInput.vue";
 import { injectCombobox } from "../injectionKeys";
 
 defineOptions({ inheritAttrs: false });
@@ -42,9 +38,6 @@ const props = withDefaults(
 
     name?: string;
     formValue?: (item: any) => Record<string, string> | string;
-
-    validators?: FormValidator[];
-    showValidationError?: boolean;
   }>(),
   {
     displayValue: (value: any) =>
@@ -52,7 +45,6 @@ const props = withDefaults(
         ? value.map((i) => i.toString()).join(", ")
         : value.toString(),
     formValue: (item: any) => item,
-    showValidationError: true,
   }
 );
 
@@ -65,8 +57,6 @@ const formInputs = computed(() => {
 });
 
 const model = defineModel();
-const modelIsValid = defineModel("isValid");
-const modelValidationMessage = defineModel("validationMessage");
 
 const comboboxId = props.id ?? useSequentialId("combobox");
 const activatorId = props.activatorId ?? comboboxId;
@@ -98,47 +88,20 @@ const {
   activatePrevItem,
 } = useList(model);
 
-// Form Control
-const { focus, isValid, validationMessage } = useFormControl(
-  `#${comboboxId}`,
-  props.validators,
-  props.showValidationError
-);
-
-watch(isValid, () => (modelIsValid.value = isValid.value));
-watch(
-  validationMessage,
-  () => (modelValidationMessage.value = validationMessage.value)
-);
+const displayValue = computed(() => props.displayValue(model.value));
 
 watch(items, () => {
   if (!activeItem.value && items.value.length) {
-    if (
-      (isMultiselectable.value && (model.value as any[]).length) ||
-      (!isMultiselectable.value && model.value)
-    ) {
-      activateSelectedItem({ focus: false });
-    } else {
+    activateSelectedItem({ focus: false });
+    if (!activeItem.value) {
       activateFirstItem({ focus: false });
     }
   }
 });
 
-const inputValue = ref("");
-
-function updateInputValue() {
-  inputValue.value = props.displayValue(model.value);
-}
-
-watch(model, updateInputValue, { deep: true, immediate: true });
-
-function onChange() {
-  updateInputValue();
-}
-
-function onInput(evt: KeyboardEvent) {
-  inputValue.value = (evt.target as HTMLInputElement).value;
-  open({ focus: false });
+function focus() {
+  const activator = useHTMLElement(`#${activatorId}`);
+  activator.value?.focus();
 }
 
 function onKeyDown(evt: KeyboardEvent) {
@@ -169,16 +132,16 @@ function onKeyDown(evt: KeyboardEvent) {
       case "Space":
         selectActiveItem();
         if (!isMultiselectable.value) {
-          close();
+          close({ focus: true });
         }
         break;
       case "Enter":
         selectActiveItem();
-        close();
+        close({ focus: true });
         break;
       case "Tab":
         selectActiveItem();
-        close();
+        close({ focus: true });
         return;
       case "ArrowUp":
         activatePrevItem({ focus: false, loop: false });
@@ -193,7 +156,7 @@ function onKeyDown(evt: KeyboardEvent) {
         activateLastItem({ focus: false });
         break;
       case "Escape":
-        close();
+        close({ focus: true });
         break;
       default:
         return;
@@ -203,10 +166,7 @@ function onKeyDown(evt: KeyboardEvent) {
   evt.preventDefault();
 }
 
-const inputAttrs = computed(() => ({
-  value: inputValue.value,
-  oninput: onInput,
-  onchange: onChange,
+const activatorAttrs = computed(() => ({
   onkeydown: onKeyDown,
   onclick: () => open({ focus: false }),
   id: comboboxId,
@@ -218,11 +178,14 @@ const inputAttrs = computed(() => ({
 }));
 
 provide(injectCombobox, {
+  displayValue,
   popoverId,
   isOpen,
-  isMultiselectable,
+  open,
   close,
   focus,
+  isMultiselectable,
+  activatorAttrs,
 });
 </script>
 

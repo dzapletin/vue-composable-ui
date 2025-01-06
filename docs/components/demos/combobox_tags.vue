@@ -1,45 +1,47 @@
 <template>
   <div class="d-demo">
-    <Combobox v-model="value" :displayValue="() => ''" activatorId="testid">
-      <template #input="{ popoverId, attrs, toggle, isOpen }">
-        <div id="testid" class="d-combobox">
-          <div class="d-combobox__tags">
-            <div v-for="item in value.slice(0, 3)" class="d-tag">
-              {{ item.name }}
-            </div>
-            <div v-if="value.length > 3">+{{ value.length - 3 }}</div>
+    <Combobox
+      v-model="value"
+      :displayValue="() => ''"
+      activatorId="demoId"
+      v-slot="{ popoverId, toggle, isOpen }"
+    >
+      <div id="demoId" class="d-combobox">
+        <div class="d-combobox__tags">
+          <div v-for="item in value.slice(0, 3)" class="d-tag">
+            {{ item.name }}
           </div>
-          <input
-            type="text"
-            v-bind="attrs"
-            @input="query = $event.target.value"
-            @focus="query = ''"
-            placeholder="Type to search..."
-            autocomplete="off"
-          />
-          <button
-            @click="toggle"
-            :aria-controls="isOpen ? popoverId : undefined"
-            :aria-expanded="isOpen"
-            aria-haspopup="listbox"
-            tabindex="-1"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill="currentColor"
-                fill-rule="evenodd"
-                d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852L7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908l2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
+          <div v-if="value.length > 3">+{{ value.length - 3 }}</div>
         </div>
-      </template>
+
+        <ComboboxInput
+          @input="query = $event.target.value"
+          @focus="query = ''"
+          placeholder="Type to search..."
+        />
+
+        <button
+          @click="toggle"
+          :aria-controls="isOpen ? popoverId : undefined"
+          :aria-expanded="isOpen"
+          aria-haspopup="listbox"
+          tabindex="-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852L7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908l2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
 
       <ComboboxOptions class="d-menu">
         <div class="d-no-options" v-if="filteredPeople.length == 0">
@@ -74,7 +76,12 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import { Combobox, ComboboxOptions, ComboboxOption } from "../../../src/main";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOptions,
+  ComboboxOption,
+} from "../../../src/main";
 
 const value = ref([]);
 const options = [

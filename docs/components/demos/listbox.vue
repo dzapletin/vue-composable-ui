@@ -1,19 +1,37 @@
 <template>
   <div class="d-demo">
-    <div>
+    <div class="d-demo--column">
       <input type="checkbox" v-model="multiple" /> Multiselectable
-      <input type="checkbox" v-model="loop" /> Loop
-      <div>Value: {{ value }}</div>
+      <br />
+      <input type="checkbox" v-model="loop" /> Loop KB navigation
       <Listbox
-        class="list"
+        class="d-list"
         :multiselectable="multiple"
         :loop="loop"
         v-model="value"
       >
-        <ListboxOption value="1" class="list-item"> Item 1 </ListboxOption>
-        <ListboxOption value="2" class="list-item"> Item 2 </ListboxOption>
-        <ListboxOption value="3" class="list-item"> Item 3 </ListboxOption>
+        <ListboxOption
+          v-for="option in options"
+          :value="option.id"
+          :key="option.id"
+          class="d-list-item"
+          v-slot="{ isSelected }"
+        >
+          {{ option.name }}
+          <svg
+            v-if="isSelected"
+            xmlns="http://www.w3.org/2000/svg"
+            width="1rem"
+            height="1rem"
+            viewBox="0 0 256 256"
+          >
+            <path
+              fill="currentColor"
+              d="m232.49 80.49l-128 128a12 12 0 0 1-17 0l-56-56a12 12 0 1 1 17-17L96 183L215.51 63.51a12 12 0 0 1 17 17Z"
+            /></svg
+        ></ListboxOption>
       </Listbox>
+      <div>Selected value: {{ value }}</div>
     </div>
   </div>
 </template>
@@ -26,6 +44,29 @@ const value = ref();
 const multiple = ref(false);
 const loop = ref(false);
 
+const options = [
+  {
+    id: 1,
+    name: "Option 1",
+  },
+  {
+    id: 2,
+    name: "Option 2",
+  },
+  {
+    id: 3,
+    name: "Option 3",
+  },
+  {
+    id: 4,
+    name: "Option 4",
+  },
+  {
+    id: 5,
+    name: "Option 5",
+  },
+];
+
 watch(multiple, (val) => {
   if (val) {
     value.value = [value.value];
@@ -34,31 +75,3 @@ watch(multiple, (val) => {
   }
 });
 </script>
-
-<style>
-.list {
-  padding: 0.5rem;
-  border: 2px blue solid;
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-.list-item {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: Lavender;
-  outline: none;
-}
-.list-item[aria-selected="true"] {
-  background-color: blue;
-  color: white;
-}
-.list-item[aria-selected="false"]:hover {
-  background-color: LightSkyBlue;
-}
-.list[aria-multiselectable="true"] .list-item[data-active="true"] {
-  outline: 3px solid DeepPink;
-  outline-offset: 2px;
-}
-</style>

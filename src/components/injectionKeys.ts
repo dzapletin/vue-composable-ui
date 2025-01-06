@@ -2,7 +2,6 @@ import type { ComputedRef, InjectionKey } from "vue";
 
 import type { UseListReturn } from "../composables/list";
 import type { UsePopoverReturn } from "../composables/popover";
-import type { useFormControlReturn } from "../composables/formControl";
 
 export const injectTabs: InjectionKey<{
   getIds: (value: any) => ComputedRef<{
@@ -14,7 +13,6 @@ export const injectTabs: InjectionKey<{
   activateLastItem: UseListReturn["activateLastItem"];
   activateNextItem: UseListReturn["activateNextItem"];
   activatePrevItem: UseListReturn["activatePrevItem"];
-  orientation: "horizontal" | "vertical";
 }> = Symbol();
 
 export const injectPopover: InjectionKey<{
@@ -40,11 +38,15 @@ export const injectMenu: InjectionKey<{
 }> = Symbol();
 
 export const injectCombobox: InjectionKey<{
+  displayValue: ComputedRef<string | undefined>;
   popoverId: string;
+
   isOpen: UsePopoverReturn["isOpen"];
+  open: UsePopoverReturn["open"];
   close: UsePopoverReturn["close"];
 
   isMultiselectable: UseListReturn["isMultiselectable"];
 
-  focus: useFormControlReturn["focus"];
+  focus: () => void;
+  activatorAttrs: ComputedRef<Record<string, any>>;
 }> = Symbol();

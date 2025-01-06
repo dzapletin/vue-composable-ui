@@ -3,7 +3,7 @@
     @keydown="onKeyDown"
     :aria-activedescendant="activeItemId"
     :aria-orientation="orientation"
-    :aria-multiselectable="multiselectable"
+    :aria-multiselectable="isMultiselectable"
     role="listbox"
     tabindex="0"
   >
@@ -18,12 +18,10 @@ import { useList } from "../../composables/list";
 const props = withDefaults(
   defineProps<{
     orientation?: "horizontal" | "vertical";
-    multiselectable?: boolean;
     loop?: boolean;
   }>(),
   {
     orientation: "vertical",
-    multiselectable: false,
     loop: false,
   }
 );

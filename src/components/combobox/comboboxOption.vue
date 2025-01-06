@@ -43,9 +43,10 @@ if (!combobox) {
 function onClick() {
   select();
   if (!combobox!.isMultiselectable.value) {
-    combobox!.close({ focus: false });
+    combobox!.close({ focus: true });
+  } else {
+    combobox!.focus();
   }
-  combobox!.focus();
 }
 </script>
 

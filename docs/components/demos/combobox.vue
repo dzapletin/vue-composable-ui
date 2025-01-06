@@ -1,19 +1,21 @@
 <template>
   <div class="d-demo">
     <div class="d-demo__column">
-      <h5>Select-Only Combobox</h5>
-      <Combobox
-        v-model="fruit"
-        readonly
-        placeholder="Choose a fruit..."
-        class="d-input d-input--select"
-      >
-        <template #input="{ attrs }">
-          <button v-bind="attrs">ad</button>
-        </template>
+      <h5>Autocomplete Combobox</h5>
+      <Combobox v-model="fruit">
+        <ComboboxInput
+          @input="query = $event.target.value"
+          @change="query = ''"
+          placeholder="Choose a fruit..."
+          class="d-input"
+        />
         <ComboboxOptions class="d-menu">
+          <div class="d-no-options" v-if="filteredFruits.length == 0">
+            Nothing found for <strong>"{{ query }}"</strong>
+          </div>
           <ComboboxOption
-            v-for="opt in fruits"
+            v-for="opt in filteredFruits"
+            :key="opt"
             :value="opt"
             v-slot="{ isSelected }"
             class="d-menu-item"
@@ -38,12 +40,10 @@
 
     <div class="d-demo__column">
       <h5>Select-Only Combobox</h5>
-      <Combobox
-        v-model="fruit"
-        readonly
-        placeholder="Choose a fruit..."
-        class="d-input d-input--select"
-      >
+      <Combobox v-model="fruit" v-slot="{ attrs, displayValue }">
+        <button class="d-input d-input--select" v-bind="attrs">
+          {{ displayValue || "Select a fruit..." }}
+        </button>
         <ComboboxOptions class="d-menu">
           <ComboboxOption
             v-for="opt in fruits"
@@ -74,10 +74,11 @@
       <Combobox
         v-model="value"
         :displayValue="(items: any[]) => items.map((i) => i.name).join(', ')"
-        readonly
-        placeholder="Select some people..."
-        class="d-input d-input--select"
+        v-slot="{ attrs, displayValue }"
       >
+        <button class="d-input d-input--select" v-bind="attrs">
+          {{ displayValue || "Select some people..." }}
+        </button>
         <ComboboxOptions class="d-menu">
           <ComboboxOption
             v-for="opt in options"
@@ -106,11 +107,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { Combobox, ComboboxOptions, ComboboxOption } from "../../../src/main";
+import { ref, computed } from "vue";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOptions,
+  ComboboxOption,
+} from "../../../src/main";
 
 const fruit = ref("");
 const fruits = ["Apple", "Banana", "Grape", "Orange"];
+
+const query = ref("");
+const filteredFruits = computed(() =>
+  query.value === ""
+    ? fruits
+    : fruits.filter((fruit) =>
+        fruit
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.value.toLowerCase().replace(/\s+/g, ""))
+      )
+);
 
 const value = ref([]);
 const options = [

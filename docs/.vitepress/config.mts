@@ -11,6 +11,10 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: "Introduction",
+        items: [{ text: "Getting Started", link: "/intro" }],
+      },
+      {
         text: "Composables",
         items: [
           { text: "useList", link: "/composables/list" },
@@ -33,8 +37,19 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/dzapletin/vue-composable-ui" },
+      {
+        icon: "github",
+        link: "https://github.com/dzapletin/vue-composable-ui",
+      },
     ],
+
+    outline: {
+      level: [2, 3],
+    },
+
+    search: {
+      provider: "local",
+    },
   },
   lastUpdated: true,
 });

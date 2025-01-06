@@ -9,16 +9,7 @@ import { provide, computed } from "vue";
 import { useList } from "../../composables/list";
 import { injectTabs } from "../injectionKeys";
 
-const props = withDefaults(
-  defineProps<{
-    orientation?: "horizontal" | "vertical";
-  }>(),
-  {
-    orientation: "horizontal",
-  }
-);
-
-const model = defineModel();
+const model = defineModel<string | number>();
 
 const {
   items,
@@ -35,7 +26,8 @@ provide(injectTabs, {
       const item = items.value.find((item) => item.value === value);
       return {
         tabId: item?.element.value?.getAttribute("id") || undefined,
-        panelId: item?.element.value?.getAttribute("aria-controls") || undefined,
+        panelId:
+          item?.element.value?.getAttribute("aria-controls") || undefined,
       };
     }),
   selectActiveItem,
@@ -43,7 +35,6 @@ provide(injectTabs, {
   activateLastItem,
   activateNextItem,
   activatePrevItem,
-  orientation: props.orientation,
 });
 </script>
 

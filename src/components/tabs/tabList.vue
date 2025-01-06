@@ -1,5 +1,9 @@
 <template>
-  <div @keydown="onKeyDown" :aria-orientation="tabs!.orientation" role="tablist">
+  <div
+    @keydown="onKeyDown"
+    :aria-orientation="props.orientation"
+    role="tablist"
+  >
     <slot />
   </div>
 </template>
@@ -7,6 +11,15 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import { injectTabs } from "../injectionKeys";
+
+const props = withDefaults(
+  defineProps<{
+    orientation?: "horizontal" | "vertical";
+  }>(),
+  {
+    orientation: "horizontal",
+  }
+);
 
 const tabs = inject(injectTabs);
 if (!tabs) {
@@ -16,30 +29,30 @@ if (!tabs) {
 function onKeyDown(evt: KeyboardEvent) {
   switch (evt.code) {
     case "ArrowUp":
-      if (tabs!.orientation === "vertical") {
-        tabs!.activatePrevItem();
+      if (props.orientation === "vertical") {
+        tabs!.activatePrevItem({ focus: true, loop: true });
       }
       break;
     case "ArrowDown":
-      if (tabs!.orientation === "vertical") {
-        tabs!.activateNextItem();
+      if (props.orientation === "vertical") {
+        tabs!.activateNextItem({ focus: true, loop: true });
       }
       break;
     case "ArrowLeft":
-      if (tabs!.orientation === "horizontal") {
-        tabs!.activatePrevItem();
+      if (props.orientation === "horizontal") {
+        tabs!.activatePrevItem({ focus: true, loop: true });
       }
       break;
     case "ArrowRight":
-      if (tabs!.orientation === "horizontal") {
-        tabs!.activateNextItem();
+      if (props.orientation === "horizontal") {
+        tabs!.activateNextItem({ focus: true, loop: true });
       }
       break;
     case "Home":
-      tabs!.activateFirstItem();
+      tabs!.activateFirstItem({ focus: true });
       break;
     case "End":
-      tabs!.activateLastItem();
+      tabs!.activateLastItem({ focus: true });
       break;
     default:
       return;

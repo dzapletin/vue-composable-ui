@@ -12,7 +12,6 @@ Based on:
 - [usePopover](/composables/popover)
 - [useList](/composables/list)
 - [useListOption](/composables/list-option)
-- [useFormControl](/composables/form-control)
 
 ## Demo
 
@@ -47,39 +46,17 @@ The root component.
 
 ### Slots
 
-#### input
+#### default
 
-The `input` slot is used to provide an input element and possibly an activator. The slot passes the following properties:
+The `default` slot is used to provide a [ComboboxInput](#comboboxinput), possibly an additional activator and a list of options in the [ComboboxOptions](#comboboxoptions) component. The slot passes the following properties:
 
-| Property      | Description                                               | Type           |
-| ------------- | --------------------------------------------------------- | -------------- |
-| **attrs**     | Required attributes that **must** be binded to the input. | `object`       |
-| **isOpen**    | The status of the popover.                                | `Ref<boolean>` |
-| **toggle**    | Toggle the popover.                                       | `() => void`   |
-| **popoverId** | The ID of the popover dialog.                             | `string`       |
-
-In a complex component you may need to wrap the input in a container element which must serve as an activator for the popover. You can achieve this by setting the `activatorId` property and assigning it to the wrapper element in the input slot.
-
-```vue
-<Combobox activatorId="activator">
-  <template #input="{ popoverId, attrs, toggle, isOpen }">
-    <div id="activator">
-      <input
-        v-bind="attrs"
-      />
-      <button
-        @click="toggle"
-        :aria-controls="isOpen ? popoverId : undefined"
-        :aria-expanded="isOpen"
-        aria-haspopup="listbox"
-        tabindex="-1"
-      >
-        Toggle
-      </button>
-    </div>
-  </template>
-</Combobox>
-```
+| Property         | Description                                                   | Type                  |
+| ---------------- | ------------------------------------------------------------- | --------------------- |
+| **attrs**        | Required attributes that **must** be binded to the activator. | `object`              |
+| **isOpen**       | The status of the popover.                                    | `Ref<boolean>`        |
+| **toggle**       | Toggle the popover.                                           | `() => void`          |
+| **displayValue** | The current display value.                                    | `ComputedRef<string>` |
+| **popoverId**    | The ID of the popover dialog.                                 | `string`              |
 
 ### Keyboard interactions
 
@@ -99,6 +76,10 @@ When open:
 - `Home` - Moves focus to the first item.
 - `End` - Moves focus to the last item.
 - `Escape` - Closes the listbox.
+
+## ComboboxInput
+
+An input field with events and triggers attached to it to work inside a combobox. Has no properties.
 
 ## ComboboxOptions
 

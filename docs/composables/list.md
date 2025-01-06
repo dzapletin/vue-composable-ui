@@ -100,7 +100,7 @@ interface ActivationOptions {
 
 interface NavigationOptions {
   /**
-   * Infinitely cycle throught the items
+   * Infinitely cycle through the items
    *
    * @defaultValue false
    */
