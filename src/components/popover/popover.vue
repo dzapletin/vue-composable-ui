@@ -2,10 +2,10 @@
   <slot
     :attrs="activatorAttrs"
     :isOpen="isOpen"
-    :toggle="toggle"
-    :open="open"
-    :close="close"
-  ></slot>
+    :toggle="() => toggle()"
+    :open="() => open()"
+    :close="() => close()"
+  />
 </template>
 
 <script setup lang="ts">

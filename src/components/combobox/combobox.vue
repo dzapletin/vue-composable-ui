@@ -12,7 +12,7 @@
   <slot
     :popoverId="popoverId"
     :isOpen="isOpen"
-    :toggle="toggle"
+    :toggle="() => toggle()"
     :displayValue="displayValue"
     :attrs="activatorAttrs"
   />

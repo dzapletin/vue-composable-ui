@@ -1,5 +1,7 @@
 <template>
-  <slot :attrs="activatorAttrs"></slot>
+  <div>
+    <slot :attrs="activatorAttrs" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -78,7 +80,7 @@ const activatorAttrs = computed(() => ({
   "aria-controls": isOpen.value ? menuId : undefined,
   "aria-haspopup": "menu" as "menu",
   "aria-expanded": isOpen.value,
-  onclick: toggle,
+  onclick: () => toggle(),
   onkeydown: onActivatorKeyDown,
   tabindex: 0,
 }));
