@@ -5,6 +5,7 @@
     @click="onClick"
     @keydown="onKeyDown"
     @mouseenter="activate({ focus: false })"
+    @mouseleave="deactivate()"
     :data-active="isActive"
     :role="role"
     :aria-checked="value !== undefined ? isSelected : undefined"
@@ -34,7 +35,7 @@ const emit = defineEmits<{
 const itemId = props.id ?? useSequentialId("menu-item");
 
 const itemEl = ref<HTMLElement>();
-const { isSelected, isActive, select, activate } = useListOption(
+const { isSelected, isActive, select, activate, deactivate } = useListOption(
   itemEl,
   props.value,
   props.disabled

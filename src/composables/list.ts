@@ -90,6 +90,10 @@ interface UseListInjectionKey {
    */
   activateItem: (itemId: number, options?: ActivationOptions) => void;
   /**
+   * Deactivates the currently active item
+   */
+  deactivateItem: () => void;
+  /**
    * Check if an item is selected
    */
   isSelected: (itemId: number) => boolean;
@@ -300,6 +304,7 @@ export function useList(value: Ref<unknown>): UseListReturn {
     value: readonly(value),
     selectItem,
     activateItem: activateItemById,
+    deactivateItem: () => activateItem(),
     isSelected: isSelectedById,
     isActive,
     addItem,

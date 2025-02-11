@@ -30,6 +30,10 @@ interface UseListOptionReturn {
    * Activate the item
    */
   activate: (options?: ActivationOptions) => void;
+  /**
+   * Deactivate the item
+   */
+  deactivate: () => void;
 }
 
 /**
@@ -63,6 +67,10 @@ export function useListOption(
     list!.activateItem(itemId.value, { focus });
   }
 
+  function deactivate() {
+    list!.deactivateItem();
+  }
+
   onBeforeMount(() => {
     itemId.value = list.addItem(el, value, disabled);
   });
@@ -76,5 +84,6 @@ export function useListOption(
     isActive: _isActive,
     select,
     activate,
+    deactivate,
   };
 }

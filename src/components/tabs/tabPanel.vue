@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isSelected"
+    v-show="isSelected"
     :id="ids.panelId"
     :aria-labelledby="ids.tabId"
     tabindex="0"
