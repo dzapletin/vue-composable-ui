@@ -1,12 +1,5 @@
 import type { ComputedRef, MaybeRef } from "vue";
-import {
-  ref,
-  unref,
-  inject,
-  computed,
-  onBeforeUnmount,
-  onBeforeMount,
-} from "vue";
+import { ref, unref, inject, computed, onMounted, onUnmounted } from "vue";
 
 import type { TemplateRefOrSelector } from "../utils/element";
 
@@ -71,11 +64,11 @@ export function useListOption(
     list!.deactivateItem();
   }
 
-  onBeforeMount(() => {
+  onMounted(() => {
     itemId.value = list.addItem(el, value, disabled);
   });
 
-  onBeforeUnmount(() => {
+  onUnmounted(() => {
     list.removeItem(itemId.value);
   });
 

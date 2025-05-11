@@ -14,8 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { useTemplateRef, useId } from "vue";
 import { useListOption } from "../../composables/listOption";
 
 const props = defineProps<{
@@ -24,9 +23,9 @@ const props = defineProps<{
   disabled?: boolean;
 }>();
 
-const itemId = props.id ?? useSequentialId("list-option");
+const itemId = props.id ?? useId();
 
-const itemEl = ref<HTMLElement>();
+const itemEl = useTemplateRef('itemEl');
 const { isSelected, isActive, select } = useListOption(
   itemEl,
   props.value,

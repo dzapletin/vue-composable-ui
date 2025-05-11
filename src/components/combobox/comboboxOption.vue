@@ -14,8 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { useTemplateRef, inject, useId } from "vue";
 import { useListOption } from "../../composables/listOption";
 import { injectCombobox } from "../injectionKeys";
 
@@ -25,9 +24,9 @@ const props = defineProps<{
   disabled?: boolean;
 }>();
 
-const itemId = props.id ?? useSequentialId("combobox-option");
+const itemId = props.id ?? useId();
 
-const itemEl = ref<HTMLElement>();
+const itemEl = useTemplateRef('itemEl');
 
 const { isSelected, isActive, activate, select } = useListOption(
   itemEl,

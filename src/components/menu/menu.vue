@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <slot :attrs="activatorAttrs" />
-  </div>
+  <slot :attrs="activatorAttrs" :isOpen="isOpen" />
 </template>
 
 <script setup lang="ts">
-import { computed, provide, nextTick } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { computed, provide, nextTick, useId } from "vue";
 import { usePopover } from "../../composables/popover";
 import { useList } from "../../composables/list";
 import { injectMenu } from "../injectionKeys";
@@ -26,8 +23,8 @@ const props = withDefaults(
   }
 );
 
-const menuId = props.id ?? useSequentialId("menu");
-const activatorId = props.activatorId ?? useSequentialId("menu-activator");
+const menuId = props.id ?? useId();
+const activatorId = props.activatorId ?? useId();
 
 const model = defineModel();
 

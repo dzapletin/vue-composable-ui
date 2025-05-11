@@ -9,8 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, computed } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { provide, computed, useId } from "vue";
 import { usePopover } from "../../composables/popover";
 import { injectPopover } from "../injectionKeys";
 
@@ -35,8 +34,8 @@ const props = withDefaults(
   }
 );
 
-const popoverId = props.id ?? useSequentialId("popover");
-const activatorId = props.activatorId ?? useSequentialId("popover-activator");
+const popoverId = props.id ?? useId();
+const activatorId = props.activatorId ?? useId();
 
 const { isOpen, toggle, open, close } = usePopover(
   `#${activatorId}`,

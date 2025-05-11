@@ -17,8 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject, computed } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { useTemplateRef, inject, computed, useId } from "vue";
 import { useListOption } from "../../composables/listOption";
 import { injectMenu } from "../injectionKeys";
 
@@ -32,9 +31,9 @@ const emit = defineEmits<{
   select: [value: any];
 }>();
 
-const itemId = props.id ?? useSequentialId("menu-item");
+const itemId = props.id ?? useId();
 
-const itemEl = ref<HTMLElement>();
+const itemEl = useTemplateRef('itemEl');
 const { isSelected, isActive, select, activate, deactivate } = useListOption(
   itemEl,
   props.value,

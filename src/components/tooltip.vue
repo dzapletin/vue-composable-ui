@@ -15,8 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, useSlots } from "vue";
-import { useSequentialId } from "../utils/id";
+import { onBeforeUnmount, onMounted, ref, useSlots, useId } from "vue";
 import { usePopover } from "../composables/popover";
 
 defineOptions({
@@ -39,7 +38,7 @@ const slots = useSlots();
 const popupEl = ref();
 let timer: NodeJS.Timeout;
 
-const tooltipId = props.id ?? useSequentialId("tooltip");
+const tooltipId = props.id ?? useId();
 
 const { isOpen } = usePopover(`[aria-describedby=${tooltipId}]`, popupEl, {
   direction: props.direction,

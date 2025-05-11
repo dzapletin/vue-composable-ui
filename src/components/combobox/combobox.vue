@@ -19,8 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, watch, nextTick } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { computed, provide, watch, nextTick, useId } from "vue";
 import { useHTMLElement } from "../../utils/element";
 import { usePopover } from "../../composables/popover";
 import { useList } from "../../composables/list";
@@ -58,7 +57,7 @@ const formInputs = computed(() => {
 
 const model = defineModel();
 
-const comboboxId = props.id ?? useSequentialId("combobox");
+const comboboxId = props.id ?? useId();
 const activatorId = props.activatorId ?? comboboxId;
 const popoverId = `${comboboxId}-popover`;
 

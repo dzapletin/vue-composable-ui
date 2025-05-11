@@ -13,8 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useSequentialId } from "../../utils/id";
+import { useTemplateRef, useId } from "vue";
 import { useListOption } from "../../composables/listOption";
 
 const props = defineProps<{
@@ -23,12 +22,12 @@ const props = defineProps<{
   value: string | number;
 }>();
 
-const tab = ref<HTMLButtonElement>();
+const tab = useTemplateRef('tab');
 
 const { isSelected, select } = useListOption(tab, props.value);
 
-const tabId = props.id ?? useSequentialId("tab");
-const tabPanelId = props.ariaControls ?? useSequentialId("tab-panel");
+const tabId = props.id ?? useId();
+const tabPanelId = props.ariaControls ?? useId();
 </script>
 
 <style scoped></style>

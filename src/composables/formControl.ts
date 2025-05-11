@@ -61,7 +61,7 @@ export function useFormControl(
   const validity = ref<ValidityState>();
   const validationMessage = ref("");
 
-  let formElement: FormElement | undefined;
+  let formElement: FormElement | null;
   let initValue: string;
 
   function focus() {
@@ -74,19 +74,24 @@ export function useFormControl(
     validationMessage.value = formElement!.validationMessage;
   }
 
+  function runValidators() {
+    if (!formElement) throw new Error("Form element is undefined");
+    const value = formElement.value;
+    for (const validator of unref(validators)) {
+      const check = validator(value);
+      if (check !== true) {
+        formElement.setCustomValidity(check as string);
+        break;
+      }
+    }
+  }
+
   function validate() {
     if (!formElement) throw new Error("Form element is undefined");
     formElement.setCustomValidity("");
 
     if (formElement.validity.valid) {
-      const value = formElement.value;
-      for (const validator of unref(validators)) {
-        const check = validator(value);
-        if (check !== true) {
-          formElement.setCustomValidity(check as string);
-          break;
-        }
-      }
+      runValidators();
     }
 
     updateValidationState();
@@ -110,6 +115,11 @@ export function useFormControl(
   onMounted(() => {
     formElement = useHTMLElement(el).value;
     if (!formElement) throw new Error("Form element is undefined");
+
+    // Set the initial validity state,
+    // otherwise custom validators will not be called
+    // if the form is submitted before any change event
+    runValidators();
 
     initValue = formElement.value;
 

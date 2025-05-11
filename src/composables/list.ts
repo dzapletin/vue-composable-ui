@@ -14,7 +14,7 @@ import { useHTMLElement, TemplateRefOrSelector } from "../utils/element";
 export type ItemValue = unknown;
 export interface Item {
   id: number;
-  element: Ref<HTMLElement | undefined>;
+  element: Ref<HTMLElement | null>;
   value: ItemValue;
   disabled: MaybeRef<boolean>;
 }
