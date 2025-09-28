@@ -49,4 +49,5 @@ export const injectCombobox: InjectionKey<{
 
   focus: () => void;
   activatorAttrs: ComputedRef<Record<string, any>>;
+  activatorOnKeyDown: (e: KeyboardEvent) => void;
 }> = Symbol();

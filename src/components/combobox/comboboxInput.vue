@@ -1,9 +1,17 @@
 <template>
-  <input v-model="model" v-bind="inputAttrs" autocomplete="off" />
+  <input
+    v-model="model"
+    v-bind="combobox.activatorAttrs"
+    @click="combobox.open({ focus: false })"
+    @keydown="combobox.activatorOnKeyDown"
+    @input="combobox.open({ focus: true })"
+    @change="updateValue"
+    autocomplete="off"
+  />
 </template>
 
 <script setup lang="ts">
-import { computed, inject, watch } from "vue";
+import { inject, watch } from "vue";
 
 import { injectCombobox } from "../injectionKeys";
 
@@ -19,10 +27,4 @@ function updateValue() {
 }
 
 watch(combobox!.displayValue, updateValue, { immediate: true });
-
-const inputAttrs = computed(() => ({
-  oninput: () => combobox!.open({ focus: true }),
-  onchange: updateValue,
-  ...combobox!.activatorAttrs.value,
-}));
 </script>

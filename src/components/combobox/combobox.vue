@@ -166,8 +166,6 @@ function onKeyDown(evt: KeyboardEvent) {
 }
 
 const activatorAttrs = computed(() => ({
-  onkeydown: onKeyDown,
-  onclick: () => open({ focus: false }),
   id: comboboxId,
   "aria-controls": isOpen.value ? popoverId : undefined,
   "aria-expanded": isOpen.value,
@@ -185,6 +183,7 @@ provide(injectCombobox, {
   focus,
   isMultiselectable,
   activatorAttrs,
+  activatorOnKeyDown: onKeyDown,
 });
 </script>
 
