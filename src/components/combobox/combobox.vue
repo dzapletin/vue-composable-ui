@@ -40,9 +40,9 @@ const props = withDefaults(
   }>(),
   {
     displayValue: (value: any) =>
-      Array.isArray(value)
+      value && Array.isArray(value)
         ? value.map((i) => i.toString()).join(", ")
-        : value.toString(),
+        : value.toString() || undefined,
     formValue: (item: any) => item,
   }
 );
