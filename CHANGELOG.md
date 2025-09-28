@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.7](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.6...v1.0.7) (2025-09-28)
+
 ## [1.0.6](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.5...v1.0.6) (2025-09-28)
 
 ### Bug Fixes
