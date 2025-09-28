@@ -1,5 +1,12 @@
 import type { Ref } from "vue";
-import { ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
+import {
+  ref,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  onBeforeMount,
+} from "vue";
 import { useHTMLElement, TemplateRefOrSelector } from "../utils/element";
 
 interface UsePopoverOptions {
@@ -272,8 +279,12 @@ export function usePopover(
     } catch (e) {}
   }
 
-  const resizeObserver = new ResizeObserver(calcPosition);
+  let resizeObserver: ResizeObserver;
   const abortController = new AbortController();
+
+  onBeforeMount(() => {
+    resizeObserver = new ResizeObserver(calcPosition);
+  });
 
   onMounted(() => {
     window.addEventListener("resize", calcPosition, {
