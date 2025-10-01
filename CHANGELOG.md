@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.7...v1.1.0) (2025-10-01)
+
+### Features
+
+* **useValidation:** add a separate validation composable ([308c5db](https://github.com/dzapletin/vue-composable-ui/commit/308c5dbe583c7042d628bdb78cd4851d02308877))
+
 ## [1.0.7](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.6...v1.0.7) (2025-09-28)
 
 ## [1.0.6](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.5...v1.0.6) (2025-09-28)
