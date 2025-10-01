@@ -8,6 +8,7 @@ export { useFormControl } from "./composables/formControl";
 // Utils
 
 export { useHTMLElement } from "./utils/element";
+export { useValidation } from "./utils/validation";
 
 // Components
 
