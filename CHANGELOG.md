@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.0...v1.1.1) (2025-10-01)
+
+### Bug Fixes
+
+* **useValidation:** export the Validator type ([9ce2db8](https://github.com/dzapletin/vue-composable-ui/commit/9ce2db86b31d36cd6cdca65f725727c4581c1865))
+
 ## [1.1.0](https://github.com/dzapletin/vue-composable-ui/compare/v1.0.7...v1.1.0) (2025-10-01)
 
 ### Features
