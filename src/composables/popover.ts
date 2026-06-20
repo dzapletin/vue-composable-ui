@@ -284,7 +284,7 @@ export function usePopover(
           });
         }
       },
-      { flush: "pre" },
+      { flush: "post" },
     );
 
     window.addEventListener("resize", calcPosition, {
