@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.1...v1.1.2) (2026-06-20)
+
+### Bug Fixes
+
+* **usePopover:** move watch init to onMounted ([436100f](https://github.com/dzapletin/vue-composable-ui/commit/436100faf4756e19c711e88b06213e54a64ee1d9))
+
 ## [1.1.1](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.0...v1.1.1) (2025-10-01)
 
 ### Bug Fixes
