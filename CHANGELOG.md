@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.3](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.2...v1.1.3) (2026-06-20)
+
+### Bug Fixes
+
+* **usePopover:** flush calc post rendering ([31332ed](https://github.com/dzapletin/vue-composable-ui/commit/31332ed4a1c37875c4f74e9a46a5e374944250e8))
+
 ## [1.1.2](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.1...v1.1.2) (2026-06-20)
 
 ### Bug Fixes
