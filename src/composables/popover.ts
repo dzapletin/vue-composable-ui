@@ -6,6 +6,7 @@ import {
   onBeforeUnmount,
   nextTick,
   onBeforeMount,
+  toValue,
 } from "vue";
 import { useHTMLElement, TemplateRefOrSelector } from "../utils/element";
 
@@ -91,13 +92,17 @@ export function usePopover(
 
   function getActivator() {
     const el = useHTMLElement(activatorEl);
-    if (!el.value) throw new Error("Activator element is undefined");
+    if (!el.value)
+      throw new Error(
+        "Activator element is undefined: " + toValue(activatorEl),
+      );
     return el.value;
   }
 
   function getPopup() {
     const el = useHTMLElement(popupEl);
-    if (!el.value) throw new Error("Popover element is undefined");
+    if (!el.value)
+      throw new Error("Popover element is undefined: " + toValue(popupEl));
     return el.value;
   }
 
