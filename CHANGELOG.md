@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.4](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.3...v1.1.4) (2026-06-22)
+
+### Reverts
+
+* **usePopover:** revert watch func changes ([ed189f1](https://github.com/dzapletin/vue-composable-ui/commit/ed189f1db00a0abbec049bc70f7c3c957cb43c2e))
+
 ## [1.1.3](https://github.com/dzapletin/vue-composable-ui/compare/v1.1.2...v1.1.3) (2026-06-20)
 
 ### Bug Fixes
