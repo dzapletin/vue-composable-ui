@@ -86,7 +86,7 @@ export function usePopover(
     position = "fixed",
     closeOnOutsideClick = true,
     closeOnInsideClick = false,
-  }: UsePopoverOptions = {},
+  }: UsePopoverOptions = {}
 ): UsePopoverReturn {
   const isOpen = ref(false);
 
@@ -248,6 +248,18 @@ export function usePopover(
     }
   }
 
+  watch(
+    isOpen,
+    (val) => {
+      if (val) {
+        nextTick(() => {
+          calcPosition();
+        });
+      }
+    },
+    { flush: "pre" }
+  );
+
   function onWindowClick(evt: MouseEvent) {
     const target = evt.target as HTMLElement;
 
@@ -280,18 +292,6 @@ export function usePopover(
   });
 
   onMounted(() => {
-    watch(
-      isOpen,
-      (val) => {
-        if (val) {
-          nextTick(() => {
-            calcPosition();
-          });
-        }
-      },
-      { flush: "post" },
-    );
-
     window.addEventListener("resize", calcPosition, {
       passive: true,
       signal: abortController.signal,
